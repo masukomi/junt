@@ -15,41 +15,41 @@
 ┌──────────────────────────────────────────────┐                 │id:         int                           │
 │Job                                           │                 │name:       string                        │
 │-----------------------------------------     │                 │location:   string (optional)             │
-│id:                 int                       │        ┌────────│url:        string (url optional)         │
-│company_id:         int                       │        │        │created_at: date_time (optional)          │
-│job_title:          string (optional)         │        │        │                                          │
-│posting_url:        string (url)              │        │        │has_many:   jobs (maybe)                  │
-│source:             string (optional)         │        │        │has_many:   people (through applications) │
-│referred_by:        string (optional)         │        │        └──────────────────────────────────────────┘
-│salary_range:       string (optional)         │        │
-│application_method: string (optional)         │◀───────┤
+│id:                 int                       │                 │url:        string (url optional)         │
+│company_id:         int                       │        ┌────────│note:       string (optional - markdown)  │
+│job_title:          string (optional)         │        │        │created_at: date_time (optional)          │
+│posting_url:        string (url)              │        │        │updated_at: date_time (optional)          │
+│source:             string (optional)         │        │        │                                          │
+│referred_by:        string (optional)         │        │        │has_many:   jobs (maybe)                  │
+│salary_range:       string (optional)         │        │        │has_many:   people (through applications) │
+│application_method: string (optional)         │◀───────┤        └──────────────────────────────────────────┘
 │note:               string (optional)         │        │        ┌──────────────────────────────────────────┐
 │created_at:         date_time (optional)      │        │        │Event                                     │
 │updated_at:         date_time (optional)      │        │        │-------------------------------------     │
 │start_date:         date_time (optional)      │        │        │id:          int                          │
 │                                              │        │        │job_id    :  int                          │
-│                                              │        └────────│created_at:  date_time                    │◎─┐
-│belongs_to:  company                          │                 │people_ids:  array of ints (optional)     │  │
-│has_many:    events (maybe)                   │                 │notes:       string (optional - markdown) │  │
-│has_many:    people (hr contact(s))           │                 │                                          │  │
-└──────────────────────────────────────────────┘                 │belongs_to: job                           │  │
-                        ▲                                        └──────────────────────────────────────────┘  │
+│                                              │        │        │created_at:  date_time                    │
+│belongs_to:         company                   │        └────────│people_ids:  array of ints (optional)     │◎─┐
+│has_many:           events (maybe)            │                 │note:        string (optional - markdown) │  │
+│has_many:           people (hr contact(s))    │                 │                                          │  │
+└──────────────────────────────────────────────┘                 │belongs_to:  job                          │  │
+                        ▲                                        │                                          │  │
+                        │                                        └──────────────────────────────────────────┘  │
                         │                                                              ▲                       │
-                        │                                                              │                       │
                         │          ┌────────────────────────────────────────┐          │                       │
                         │          │Person                                  │          │                       │
                         │          │----------------                        │          │                       │
                         │          │id:         int                         │          │                       │
                         │          │name:       string                      │          │                       │
                         │          │email:      string (optional)           │          │                       │
-                        └──────────│phone:      string (optional)           │──────────┘                       │
-                                   │created_at: date_time (optional)        │                                  │
-                                   │notes:      string (optional - markdown)│                                  │
+                        │          │phone:      string (optional)           │          │                       │
+                        └──────────│created_at: date_time (optional)        │──────────┘                       │
+                                   │updated_at: date_time (optional)        │                                  │
+                                   │note:       string (optional - markdown)│                                  │
                                    │                                        │                                  │
-                                   │has_many: events (maybe)                │                                  │
+                                   │has_many:   events (maybe)              │                                  │
                                    │                                        │                                  │
                                    └────────────────────────────────────────┘                                  │
-                                                                                                               │
                                                                                                                │
                                                                                                                │
                                                                                                                │
