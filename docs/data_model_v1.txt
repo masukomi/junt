@@ -1,92 +1,95 @@
-   ┌────────────────────────────────────┐                           ┌──────────────────────────────────────────┐
-   │It's all about the Jobs...          │                           │Company                                   │
-   └────────────────────────────────────┘                           │----------------                          │
-   ┌──────────────────────────────────────────────┐                 │id:         int                           │
-   │Job                                           │                 │name:       string                        │
-   │-----------------------------------------     │                 │location:   string (optional)             │
-   │id:                 int                       │        ┌────────│url:        string (url optional)         │
-   │company_id:         int                       │        │        │created_at: date_time                     │
-   │job_title:          string (optional)         │        │        │                                          │
-   │posting_url:        string (url)              │        │        │has_many:   applications                  │
-   │source:             string                    │        │        │has_many:   people (through applications) │
-   │referred_by:        string (optional)         │        │        └──────────────────────────────────────────┘
-   │salary_range:       string (optional)         │        │
-   │application_method: string (optional)         │        │
-┌──│note:               string (optional)         │◀───────┤        ┌──────────────────────────────────────────┐
-│  │created_at:         date_time                 │        │        │Event                                     │
-│  │updated_at:         date_time                 │        │        │-------------------------------------     │
-│  │current_status:     string enum               │        │        │id:          int                          │
-│  │start_date:         date_time (optional)      │        └────────│created_at:  date_time                    │◎─┐
-│  │                                              │                 │people_ids:  array of ints (optional)     │  │
-│  │                                              │                 │notes:       string (optional - markdown) │  │
-│  │belongs_to:  company                          │                 └──────────────────────────────────────────┘  │
-│  │has_many:    interviews (maybe)               │                                       ▲                       │
-│  │has_one:     note (maybe)                     │                                       │                       │
-│  │has_many:    people (hr contact(s))           │                                       │                       │
-│  └──────────────────────────────────────────────┘                                       │                       │
-│                          ▲                                                              │                       │
-│                          │         ┌─────────────────────────────┐                      │                       │
-│                          │         │Person                       │                      │                       │
-│                          │         │----------------             │                      │                       │
-│                          │         │id:         int              │                      │                       │
-│                          │         │name:       string           │                      │                       │
-│                          │         │email:      string (optional)│                      │                       │
-│                          │         │phone:      string (optional)│                      │                       │
-│                          └─────────│created_at: date_time        │──────────────────────┘                       │
-│                                    │notes:      string (optional │                                              │
-│                                    │markdown)                    │                                              │
-│                                    │                             │                                              │
-│                                    │has_many: interviews         │                                              │
-│                                    │has_and_belongs_to_many:     │                                              │
-│                                    └─────────────────────────────┘                                              │
-│                                                   ▲                                                             │
-│                                                   │                                                             │
-│                                                   ▼           ┌──────────────────────────────────────────┐      │
-│                                          ┌────────────────┐   │ThanksEmail < Event                       │      │
-│                                          │people_thanks   │   │---------------------                     │      │
-│                                          │--------------  │   │                                          │      │
-│                                          │people_id: int  │◀─▶│created_at: date_time (optional)          │◎─────┤
-│                                          │thanks_id: int  │   │people_ids: array of ints (maybe)         │      │
-│                                          │                │   │                                          │      │
-│                                          └────────────────┘   │has_and_belongs_to_many: people           │      │
-│                                                               └──────────────────────────────────────────┘      │
-│                                                               ┌──────────────────────────────────────────┐      │
-│                                                               │StatusChange < Event                      │      │
-│                                                               │---------------------                     │      │
-│   ┌─────────────────────────────┐                             │from:  string                             │      │
-│   │job status enum              │                             │to:    string                             │◎─────┤
-│   │---------------------------- │                             │                                          │      │
-│   │applied,                     │                             │                                          │      │
-│   │interviewing,                │                             │on_create: job status is updated          │      │
-│   │interviewing_???,            │                             └──────────────────────────────────────────┘      │
-└───│rejected,                    │                             ┌──────────────────────────────────────────┐      │
-    │offer,                       │                             │Followup < Event                          │      │
-    │black_hole                   │                             │---------------------                     │◎─────┤
-    │                             │                             │                                          │      │
-    │                             │                             └──────────────────────────────────────────┘      │
-    │                             │                             ┌──────────────────────────────────────────┐      │
-    └─────────────────────────────┘                             │Homework < Event                          │      │
-                                                                │---------------------                     │      │
-                                                                │                                          │◎─────┤
-                                                                │due_date:   string (ISO 8601)             │      │
-                                                                └──────────────────────────────────────────┘      │
-                         ┌─────────────────────────────┐        ┌──────────────────────────────────────────┐      │
-                         │interview type enum          │        │Interview < Event                         │      │
-                         │(user generated options)     │        │---------------------                     │      │
-                         │---------------------------- │        │                                          │      │
-                         │recruiter                    │────────│scheduled: date_time                      │◎─────┤
-                         │technical                    │        │length:    int (minutes)                  │      │
-                         │peer                         │        │rating:    string enum (emoji)            │      │
-                         │manager                      │        │type:      string enum                    │      │
-                         └─────────────────────────────┘        └──────────────────────────────────────────┘      │
-                                                                                                                  │
-                                                                ┌──────────────────────────────────────────┐      │
-                                                                │Offer < Event                             │      │
-                                                                │---------------------                     │      │
-                                                                │                                          │      │
-                                                                │status:    string (enum)                  │      │
-                                                                │            received,                     │◎─────┘
-                                                                │            negotiating,                  │
-                                                                │            accepted,                     │
-                                                                │            finalized                     │
-                                                                └──────────────────────────────────────────┘
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│NOTES:                                                                                                     │
+│* All date_time fields are ISO 8601 formatted time stamps                                                  │
+│* all created_at & updated_at fields will be populated on                                                  │
+│  creation / update if the associated date                                                                 │
+│  is _not_ passed in                                                                                       │
+│* any "array of ints" association will _always_ return an                                                  │
+│  array. It may be an empty array but it will be present.                                                  │
+│                                                                                                           │
+│                                                                                                           │
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────┐                           ┌──────────────────────────────────────────┐
+│It's all about the Jobs...          │                           │Company                                   │
+└────────────────────────────────────┘                           │----------------                          │
+┌──────────────────────────────────────────────┐                 │id:         int                           │
+│Job                                           │                 │name:       string                        │
+│-----------------------------------------     │                 │location:   string (optional)             │
+│id:                 int                       │                 │url:        string (url optional)         │
+│company_id:         int                       │        ┌────────│note:       string (optional - markdown)  │
+│job_title:          string (optional)         │        │        │created_at: date_time (optional)          │
+│posting_url:        string (url)              │        │        │updated_at: date_time (optional)          │
+│source:             string (optional)         │        │        │                                          │
+│referred_by:        string (optional)         │        │        │has_many:   jobs (maybe)                  │
+│salary_range:       string (optional)         │        │        │has_many:   people (through applications) │
+│application_method: string (optional)         │◀───────┤        └──────────────────────────────────────────┘
+│note:               string (optional)         │        │        ┌──────────────────────────────────────────┐
+│created_at:         date_time (optional)      │        │        │Event                                     │
+│updated_at:         date_time (optional)      │        │        │-------------------------------------     │
+│start_date:         date_time (optional)      │        │        │id:          int                          │
+│                                              │        │        │job_id    :  int                          │
+│                                              │        │        │created_at:  date_time                    │
+│belongs_to:         company                   │        └────────│people_ids:  array of ints (optional)     │◎─┐
+│has_many:           events (maybe)            │                 │note:        string (optional - markdown) │  │
+│has_many:           people (hr contact(s))    │                 │                                          │  │
+└──────────────────────────────────────────────┘                 │belongs_to:  job                          │  │
+                        ▲                                        │                                          │  │
+                        │                                        └──────────────────────────────────────────┘  │
+                        │                                                              ▲                       │
+                        │          ┌────────────────────────────────────────┐          │                       │
+                        │          │Person                                  │          │                       │
+                        │          │----------------                        │          │                       │
+                        │          │id:         int                         │          │                       │
+                        │          │name:       string                      │          │                       │
+                        │          │email:      string (optional)           │          │                       │
+                        │          │phone:      string (optional)           │          │                       │
+                        └──────────│created_at: date_time (optional)        │──────────┘                       │
+                                   │updated_at: date_time (optional)        │                                  │
+                                   │note:       string (optional - markdown)│                                  │
+                                   │                                        │                                  │
+                                   │has_many:   events (maybe)              │                                  │
+                                   │                                        │                                  │
+                                   └────────────────────────────────────────┘                                  │
+                                                                                                               │
+                                                                                                               │
+                                                                                                               │
+                                                                                                               │
+ ┌─────────────────────────────┐                                                                               │
+ │job status enum              │                              ┌──────────────────────────────────────────┐     │
+ │---------------------------- │                              │StatusChange < Event                      │     │
+ │applied,                     │                              │---------------------                     │     │
+ │interviewing,                │                              │from:  string                             │     │
+ │interviewing_???,            │──────────────────────────────│to:    string                             │◎────┤
+ │rejected,                    │                              │                                          │     │
+ │offer,                       │                              │                                          │     │
+ │black_hole                   │                              │                                          │     │
+ └─────────────────────────────┘                              └──────────────────────────────────────────┘     │
+                                                              ┌──────────────────────────────────────────┐     │
+                                                              │Followup < Event                          │     │
+                                                              │---------------------                     │◎────┤
+                                                              │                                          │     │
+                                                              └──────────────────────────────────────────┘     │
+                                                              ┌──────────────────────────────────────────┐     │
+                                                              │Homework < Event                          │     │
+                                                              │---------------------                     │     │
+                                                              │                                          │◎────┤
+                                                              │due_date:   string (ISO 8601)             │     │
+                                                              └──────────────────────────────────────────┘     │
+ ┌─────────────────────────────┐                              ┌──────────────────────────────────────────┐     │
+ │interview type enum          │                              │Interview < Event                         │     │
+ │(user generated options)     │                              │---------------------                     │     │
+ │---------------------------- │                              │                                          │     │
+ │recruiter                    │──────────────────────────────│scheduled: date_time                      │◎────┤
+ │technical                    │                              │length:    int (minutes)                  │     │
+ │peer                         │                              │rating:    string enum (emoji)            │     │
+ │manager                      │                              │type:      string enum                    │     │
+ └─────────────────────────────┘                              └──────────────────────────────────────────┘     │
+                                                              ┌──────────────────────────────────────────┐     │
+                                                              │Offer < Event                             │     │
+                                                              │---------------------                     │     │
+                                                              │                                          │     │
+                                                              │status:    string (enum)                  │◎────┘
+                                                              │            received,                     │
+                                                              │            accepted,                     │
+                                                              │            finalized                     │
+                                                              └──────────────────────────────────────────┘

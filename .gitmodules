@@ -1,0 +1,3 @@
+[submodule "themes/docuapi"]
+	path = site/themes/docuapi
+	url = git@github.com:bep/docuapi.git
