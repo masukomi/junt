@@ -18,5 +18,6 @@ A person object contains a collection of information about a specific person rel
 | updated_at | date_time | Optional | Date/time when the person is last updated. | ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request. |
 
 ## Associations ##
+
 | --- | --- |
 | has_many | events (maybe) |

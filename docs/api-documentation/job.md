@@ -23,6 +23,7 @@ A job object contains a collection of information about a specific role.
 | start_date | date_time | Optional | The expected start date for the job | |
 
 ## Associations ##
+
 | --- | --- |
 | belongs_to | company |
 | has_many | events (maybe) |
