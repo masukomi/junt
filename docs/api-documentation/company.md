@@ -18,6 +18,7 @@ A company object contains a collection of information about a specific company.
 | updated_at | date_time | Optional | Date/time when the company is last updated. | ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request. |
 
 ## Associations ##
+
 | --- | --- |
 | has_many | jobs (maybe) |
 | has_many | people (through applications) |
