@@ -4,7 +4,7 @@ A company object contains a collection of information about a specific company.
 
 - [Parameters](#company_object_parameters "Parameters")
 - [Associations](#associations "Associations")
--[ Routes/Operations](#company_object_routes "Routes/Operations")
+- [Routes/Operations](#company_object_routes "Routes/Operations")
 
 ## Company Object Parameters ##
 
@@ -39,7 +39,8 @@ Example GO code
 ```
 
 ```shell
-Example shell code
+# list all companies
+curl "http://localhost:8123/v1/companies/"
 ```
 
 ```javascript
@@ -57,7 +58,9 @@ Example javascript code
     "url": "linkedin.example.com",
     "note": null,
     "created_at": "2019-05-26T11:27:39+00:00",
-    "updated_at": null
+    "updated_at": "2019-05-26T11:27:39+00:00",
+    "people_ids": [33,44,55],
+    "job_ids": [12,24,48]
   },
   {
     "id": 2,
@@ -66,7 +69,10 @@ Example javascript code
     "url": null,
     "note": "Basecamp gets remote work - awesome culture",
     "created_at": "2019-05-27T10:18:17+00:00",
-    "updated_at": null
+    "updated_at": "2019-05-27T10:18:17+00:00",
+    "people_ids": [34,45,56],
+    "job_ids": [12,26,49]
+
   }
 ]
 ```
@@ -84,7 +90,8 @@ Example GO code
 ```
 
 ```shell
-Example shell code
+# show a specific company
+curl "http://localhost:8123/v1/companies/1"
 ```
 
 ```javascript
@@ -101,7 +108,10 @@ Example javascript code
   "url": null,
   "note": "Basecamp gets remote work - awesome culture",
   "created_at": "2019-05-27T10:18:17+00:00",
-  "updated_at": null
+  "updated_at": "2019-05-27T10:18:17+00:00",
+  "people_ids": [33,44,55],
+  "job_ids": [12,24,48]
+
 }
 ```
 
@@ -118,7 +128,14 @@ Example GO code
 ```
 
 ```shell
-Example shell code
+# create a new company
+curl "http://localhost:8123/v1/companies" \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"name": "CorporateRunaways",
+      "location":"Global",
+      "url":"https://corporaterunaways.com",
+      "note":"Adventure is _awesome!_"}'
 ```
 
 ```javascript
@@ -157,7 +174,14 @@ Example GO code
 ```
 
 ```shell
-Example shell code
+# edit a company
+curl "http://localhost:8123/v1/companies" \
+  -X PUT \
+  -H "Content-Type: application/json" \
+  -d '{"name": "CorporateRunaways",
+      "location":"Global",
+      "url":"https://corporaterunaways.com",
+      "note":"Adventure is _incredibly awesome!_"}'
 ```
 
 ```javascript
@@ -196,20 +220,12 @@ Example GO code
 ```
 
 ```shell
-Example shell code
+# Delete a company
+curl -X DELETE "http://localhost:8123/v1/companies/1"
 ```
 
 ```javascript
 Example javascript code
-```
-
-> The above command should be formed with JSON structured like this:
-
-```json
-{
-  "id": 3,
-  "name": "IRL Strategies"
-}
 ```
 
 This endpoint permanently deletes a specific company, called by `id`.

@@ -1,4 +1,4 @@
-baseURL = "http://example.org/"
+baseURL = "https://masukomi.github.io/junt/"
 languageCode = "en-us"
 title = "Job + Hunt = Junt"
 theme = "docuapi"
@@ -20,11 +20,11 @@ search = true
 
 # Configure the language example tabs.
 [[params.language_tabs]]
-key = "go"
-name = "Go" 
-[[params.language_tabs]]
 key = "shell"
 name = "Shell" 
+[[params.language_tabs]]
+key = "go"
+name = "Go" 
 # [[params.language_tabs]]
 # key = "ruby"
 # name = "Ruby"
