@@ -9,4 +9,4 @@ hugo
 cd public && git add --all && git commit -m "Publishing to gh-pages" && cd ..
 
 echo "If they look good then run: "
-echo "  git push upstream gh-pages"
+echo "  git push <remote name here> gh-pages"
