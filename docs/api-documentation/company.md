@@ -4,6 +4,7 @@ A company object contains a collection of information about a specific company.
 
 - [Parameters](#company_object_parameters "Parameters")
 - [Associations](#associations "Associations")
+-[ Routes/Operations](#company_object_routes "Routes/Operations")
 
 ## Company Object Parameters ##
 
@@ -19,17 +20,17 @@ A company object contains a collection of information about a specific company.
 
 ## Associations ##
 
+| COMPANY Object | Associated Object |
 | --- | --- |
 | has_many | jobs (maybe) |
-| has_many | people (through applications) |
 
 ## Company Object Routes ##
 
-- [Get all companies](#get_all_companies_route "Get all companies_route")
-- [Get a specific company](#get_a_specific_company_route "Get a specific company route")
-- [Create a new company](#create_a_new_company_route "Create a new company route")
-- [Edit a company](#edit_a_company_route "Edit a company route")
-- [Delete a company](#delete_a_company_route "Delete a company route")
+- [Get all companies](#get-all-companies-route "Get all companies_route")
+- [Get a specific company](#get-a-specific-company-route "Get a specific company route")
+- [Create a new company](#create-a-new-company-route "Create a new company route")
+- [Edit a company](#edit-a-company-route "Edit a company route")
+- [Delete a company](#delete-a-company-route "Delete a company route")
 
 ### Get all companies route ###
 
