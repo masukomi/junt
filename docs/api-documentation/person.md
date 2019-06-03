@@ -20,6 +20,7 @@ A person object contains a collection of information about a specific person rel
 
 ## Associations ##
 
+| PERSON Object | Associated Object |
 | --- | --- |
 | has_many | events (maybe) |
 

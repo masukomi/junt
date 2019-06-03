@@ -29,12 +29,13 @@ _*Note:* When creating a new job, don't send blank/null optional parameters. Lea
 
 ## Associations ##
 
+| JOB Object | Associated Object |
 | --- | --- |
 | belongs_to | company |
 | has_many | events (maybe) |
 | has_many | people (hr contact(s)) |
 
-## Job Object Routes ##
+## Job object routes ##
 
 - [Get all jobs](#get_all_jobs_route "Get all jobs_route")
 - [Get a specific job](#get_a_specific_job_route "Get a specific job route")
