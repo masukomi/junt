@@ -1,0 +1,1419 @@
+<!doctype html>
+<html>
+<head>
+	<meta name="generator" content="Hugo 0.55.5" />
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Job &#43; Hunt = Junt</title>
+    <link href='/slate/stylesheets/monokai.css' rel="stylesheet" media="screen" />
+<link href='/slate/stylesheets/screen.css' rel="stylesheet" media="screen" />
+<link href='/slate/stylesheets/print.css' rel="stylesheet" media="print" />
+
+    
+<script src='/slate/javascripts/all.js'></script>
+
+    
+</head>
+<body class="index" data-languages="[ &#34;shell&#34; ,  &#34;go&#34; ,  &#34;javascript&#34; ]">
+    <a href="#" id="nav-button">
+        <span>
+        NAV
+        <img src='/slate/images/navbar.png'/>
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+        
+         <img src='/images/logo.png' />
+        
+        <div class="lang-selector">
+            
+            <a href="#" data-language-name="shell">Shell</a>
+            
+            <a href="#" data-language-name="go">Go</a>
+            
+            <a href="#" data-language-name="javascript">JavaScript</a>
+            
+        </div>
+         
+        
+        <div class="search">
+            <input type="search" class="search" id="input-search" placeholder='Search'>
+        </div>
+        <ul class="search-results"></ul>
+        
+        <div id="toc">
+        </div>
+         
+        
+        <ul class="toc-footer">
+            
+            <li><a href='#'>Sign Up for a Developer Key</a></li>
+            
+            <li>Documentation Powered by <a href="https://github.com/bep/docuapi" target="_blank">DocuAPI</a></li>
+            
+            <li>Hugo Theme by <a href="https://github.com/bep" target="_blank">bep</a></li>
+            
+        </ul>
+        
+        
+    </div>
+    <div class="page-wrapper">
+        <div class="dark-box"></div>
+        <div class="content">
+            
+    
+        
+
+<h1 id="company">Company</h1>
+
+<p>A company object contains a collection of information about a specific company.</p>
+
+<ul>
+<li><a href="#company_object_parameters" title="Parameters">Parameters</a></li>
+<li><a href="#associations" title="Associations">Associations</a></li>
+<li><a href="#company_object_routes" title="Routes/Operations">Routes/Operations</a></li>
+</ul>
+
+<h2 id="company-object-parameters">Company Object Parameters</h2>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td>Required</td>
+<td>Unique identifier</td>
+<td>Becomes &ldquo;company_id&rdquo; in Job object</td>
+</tr>
+
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Required</td>
+<td>The name of the company</td>
+<td></td>
+</tr>
+
+<tr>
+<td>location</td>
+<td>string</td>
+<td>Optional</td>
+<td>Where the company is located</td>
+<td></td>
+</tr>
+
+<tr>
+<td>url</td>
+<td>string</td>
+<td>Optional</td>
+<td>The company&rsquo;s website (URL)</td>
+<td></td>
+</tr>
+
+<tr>
+<td>note</td>
+<td>string</td>
+<td>Optional</td>
+<td>Notes about the company</td>
+<td></td>
+</tr>
+
+<tr>
+<td>created_at</td>
+<td>date_time</td>
+<td>Optional</td>
+<td>Date/time when the company is first created.</td>
+<td>ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request.</td>
+</tr>
+
+<tr>
+<td>updated_at</td>
+<td>date_time</td>
+<td>Optional</td>
+<td>Date/time when the company is last updated.</td>
+<td>ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request.</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="associations">Associations</h2>
+
+<table>
+<thead>
+<tr>
+<th>COMPANY Object</th>
+<th>Associated Object</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>has_many</td>
+<td>jobs (maybe)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="company-object-routes">Company Object Routes</h2>
+
+<ul>
+<li><a href="#get-all-companies-route" title="Get all companies_route">Get all companies</a></li>
+<li><a href="#get-a-specific-company-route" title="Get a specific company route">Get a specific company</a></li>
+<li><a href="#create-a-new-company-route" title="Create a new company route">Create a new company</a></li>
+<li><a href="#edit-a-company-route" title="Edit a company route">Edit a company</a></li>
+<li><a href="#delete-a-company-route" title="Delete a company route">Delete a company</a></li>
+</ul>
+
+<h3 id="get-all-companies-route">Get all companies route</h3>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">Example</span> <span class="nx">GO</span> <span class="nx">code</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># list all companies</span>
+curl <span class="s2">&#34;http://localhost:8123/v1/companies/&#34;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">Example</span> <span class="nx">javascript</span> <span class="nx">code</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;LinkedIn&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="s2">&#34;Four Corners&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;linkedin.example.com&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;note&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&#34;created_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-05-26T11:27:39+00:00&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;updated_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-05-26T11:27:39+00:00&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;people_ids&#34;</span><span class="p">:</span> <span class="p">[</span><span class="mi">33</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="mi">55</span><span class="p">],</span>
+    <span class="nt">&#34;job_ids&#34;</span><span class="p">:</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">48</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Basecamp&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="s2">&#34;remote&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&#34;note&#34;</span><span class="p">:</span> <span class="s2">&#34;Basecamp gets remote work - awesome culture&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;created_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-05-27T10:18:17+00:00&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;updated_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-05-27T10:18:17+00:00&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;people_ids&#34;</span><span class="p">:</span> <span class="p">[</span><span class="mi">34</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">56</span><span class="p">],</span>
+    <span class="nt">&#34;job_ids&#34;</span><span class="p">:</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">49</span><span class="p">]</span>
+
+  <span class="p">}</span>
+<span class="p">]</span></code></pre></div>
+<p>This endpoint retrieves all company objects (companies).</p>
+
+<h4 id="http-request">HTTP Request</h4>
+
+<p><code>GET /company/</code></p>
+
+<h3 id="get-a-specific-company-route">Get a specific company route</h3>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">Example</span> <span class="nx">GO</span> <span class="nx">code</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># show a specific company</span>
+curl <span class="s2">&#34;http://localhost:8123/v1/companies/1&#34;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">Example</span> <span class="nx">javascript</span> <span class="nx">code</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Basecamp&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="s2">&#34;remote&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nt">&#34;note&#34;</span><span class="p">:</span> <span class="s2">&#34;Basecamp gets remote work - awesome culture&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;created_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-05-27T10:18:17+00:00&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;updated_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-05-27T10:18:17+00:00&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;people_ids&#34;</span><span class="p">:</span> <span class="p">[</span><span class="mi">33</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="mi">55</span><span class="p">],</span>
+  <span class="nt">&#34;job_ids&#34;</span><span class="p">:</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">48</span><span class="p">]</span>
+
+<span class="p">}</span></code></pre></div>
+<p>This endpoint retrieves a specific company, called by <code>id</code>.</p>
+
+<h4 id="http-request-1">HTTP Request</h4>
+
+<p><code>GET /company/2</code></p>
+
+<h3 id="create-a-new-company-route">Create a new company route</h3>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">Example</span> <span class="nx">GO</span> <span class="nx">code</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># create a new company</span>
+curl <span class="s2">&#34;http://localhost:8123/v1/companies&#34;</span> <span class="se">\
+</span><span class="se"></span>  -X POST <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span><span class="se"></span>  -d <span class="s1">&#39;{&#34;name&#34;: &#34;CorporateRunaways&#34;,
+</span><span class="s1">      &#34;location&#34;:&#34;Global&#34;,
+</span><span class="s1">      &#34;url&#34;:&#34;https://corporaterunaways.com&#34;,
+</span><span class="s1">      &#34;note&#34;:&#34;Adventure is _awesome!_&#34;}&#39;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">Example</span> <span class="nx">javascript</span> <span class="nx">code</span>
+</code></pre></div>
+<blockquote>
+<p>The above command should be formed with JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;IRL Strategies&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="s2">&#34;123 Any Street, Any Town, NY&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;note&#34;</span><span class="p">:</span> <span class="s2">&#34;Great PTO and family leave policies&#34;</span>
+<span class="p">}</span></code></pre></div>
+<p>This endpoint creates a new company, specified by <code>id</code>.</p>
+
+<p><em><em>Note:</em> In this example, <code>url</code>, <code>created_at</code> and <code>updated_at</code> are all left out of the request, because these are optional fields that do not contain data. When viewing this company, these fields will return null.</em></p>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="mi">200</span> <span class="err">Success</span></code></pre></div>
+<h4 id="http-request-2">HTTP Request</h4>
+
+<p><code>POST /company/</code></p>
+
+<h3 id="edit-a-company-route">Edit a company route</h3>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">Example</span> <span class="nx">GO</span> <span class="nx">code</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># edit a company</span>
+curl <span class="s2">&#34;http://localhost:8123/v1/companies&#34;</span> <span class="se">\
+</span><span class="se"></span>  -X PUT <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span><span class="se"></span>  -d <span class="s1">&#39;{&#34;name&#34;: &#34;CorporateRunaways&#34;,
+</span><span class="s1">      &#34;location&#34;:&#34;Global&#34;,
+</span><span class="s1">      &#34;url&#34;:&#34;https://corporaterunaways.com&#34;,
+</span><span class="s1">      &#34;note&#34;:&#34;Adventure is _incredibly awesome!_&#34;}&#39;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">Example</span> <span class="nx">javascript</span> <span class="nx">code</span>
+</code></pre></div>
+<blockquote>
+<p>The above command should be formed with JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;IRL Strategies&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://www.example.com&#34;</span>
+<span class="p">}</span></code></pre></div>
+<p>This endpoint adds new data or overwrites data to a specific company, called by <code>id</code>.</p>
+
+<p><em><em>Note:</em> In this example, parameters that are not being updated are left out of the request. Send only parameters being updated when editing a company.</em></p>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="mi">200</span> <span class="err">Success</span></code></pre></div>
+<h4 id="http-request-3">HTTP Request</h4>
+
+<p><code>PUT /company/</code></p>
+
+<h3 id="delete-a-company-route">Delete a company route</h3>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">Example</span> <span class="nx">GO</span> <span class="nx">code</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># Delete a company</span>
+curl -X DELETE <span class="s2">&#34;http://localhost:8123/v1/companies/1&#34;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">Example</span> <span class="nx">javascript</span> <span class="nx">code</span>
+</code></pre></div>
+<p>This endpoint permanently deletes a specific company, called by <code>id</code>.</p>
+
+<p><em><em>Note</em>: Deleting a COMPANY deletes all JOBS for that company, all the EVENTS associated with all the JOBS, and all of the PEOPLE associated with the COMPANY, JOBS and EVENTS.</em></p>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="mi">200</span> <span class="err">Success</span></code></pre></div>
+<h4 id="http-request-4">HTTP Request</h4>
+
+<p><code>DELETE /company/</code></p>
+
+    
+        
+
+<h1 id="event">Event</h1>
+
+<p>An event object contains a collection of information related to a specific event in the job hunt process. Events include:</p>
+
+<ul>
+<li><a href="#event_object:_thanksemail_parameters" title="ThanksEmail Parameters">ThanksEmail</a></li>
+<li><a href="#event_object:_statuschange_parameters" title="StatusChange Parameters">StatusChange</a></li>
+<li><a href="#event_object:_followup_parameters" title="Followup Parameters">Followup</a></li>
+<li><a href="#event_object:_homework_parameters" title="Homework Parameters">Homework</a></li>
+<li><a href="#event_object:_interview_parameters" title="Interview Parameters">Interview</a></li>
+
+<li><p><a href="#event_object:_offer_parameters" title="Offer Parameters">Offer</a></p></li>
+
+<li><p>Parameters</p></li>
+
+<li><p>Associations</p></li>
+
+<li><p>Routes</p></li>
+</ul>
+
+<h2 id="event-object-thanksemail-parameters">Event Object: ThanksEmail Parameters</h2>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td>Required</td>
+<td>Unique identifier</td>
+<td><code>id</code> is automatically generated at POST</td>
+</tr>
+
+<tr>
+<td>job_id</td>
+<td>int</td>
+<td>Required</td>
+<td>Unique identifier <code>id</code> from Job object</td>
+<td>Required during POST event, optional otherwise</td>
+</tr>
+
+<tr>
+<td>created_at</td>
+<td>date_time</td>
+<td>Optional</td>
+<td>Date/time when the thank-you email is sent or recorded in Junt.</td>
+<td>ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request.</td>
+</tr>
+
+<tr>
+<td>updated_at</td>
+<td>date_time</td>
+<td>Optional</td>
+<td>Date/time when the event is last updated.</td>
+<td>ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request.</td>
+</tr>
+
+<tr>
+<td>note</td>
+<td>string</td>
+<td>Optional</td>
+<td>Notes about the event</td>
+<td>Supports markdown</td>
+</tr>
+
+<tr>
+<td>person_ids</td>
+<td>array of ints</td>
+<td>Optional</td>
+<td>Person or people associated with the thank-you email</td>
+<td>Unique identifier <code>id</code> from Person object</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="event-object-statuschange-parameters">Event Object: StatusChange Parameters</h2>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td>Required</td>
+<td>Unique identifier</td>
+<td><code>id</code> is automatically generated at POST</td>
+</tr>
+
+<tr>
+<td>job_id</td>
+<td>int</td>
+<td>Required</td>
+<td>Unique identifier <code>id</code> from Job object</td>
+<td>Required during POST event, optional otherwise</td>
+</tr>
+
+<tr>
+<td>created_at</td>
+<td>date_time</td>
+<td>Optional</td>
+<td>Date/time when the status change happens, or is recorded in Junt.</td>
+<td>ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request.</td>
+</tr>
+
+<tr>
+<td>updated_at</td>
+<td>date_time</td>
+<td>Optional</td>
+<td>Date/time when the event is last updated.</td>
+<td>ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request.</td>
+</tr>
+
+<tr>
+<td>note</td>
+<td>string</td>
+<td>Optional</td>
+<td>Notes about the event</td>
+<td>Supports markdown</td>
+</tr>
+
+<tr>
+<td>from</td>
+<td>string</td>
+<td>Optional</td>
+<td>Current/former job status.</td>
+<td>Valid options: &ldquo;applied&rdquo; , &ldquo;interviewing&rdquo; , &ldquo;rejected&rdquo; , &ldquo;offer&rdquo; , &ldquo;black_hole&rdquo;</td>
+</tr>
+
+<tr>
+<td>to</td>
+<td>string</td>
+<td>Optional</td>
+<td>New job status.</td>
+<td>Valid options: &ldquo;applied&rdquo; , &ldquo;interviewing&rdquo; , &ldquo;rejected&rdquo; , &ldquo;offer&rdquo; , &ldquo;black_hole&rdquo;</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="event-object-followup-parameters">Event Object: Followup Parameters</h2>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td>Required</td>
+<td>Unique identifier</td>
+<td><code>id</code> is automatically generated at POST</td>
+</tr>
+
+<tr>
+<td>job_id</td>
+<td>int</td>
+<td>Required</td>
+<td>Unique identifier <code>id</code> from Job object</td>
+<td>Required during POST event, optional otherwise</td>
+</tr>
+
+<tr>
+<td>created_at</td>
+<td>date_time</td>
+<td>Optional</td>
+<td>Date/time when the followup happens, or is recorded in Junt.</td>
+<td>ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request.</td>
+</tr>
+
+<tr>
+<td>updated_at</td>
+<td>date_time</td>
+<td>Optional</td>
+<td>Date/time when the event is last updated.</td>
+<td>ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request.</td>
+</tr>
+
+<tr>
+<td>note</td>
+<td>string</td>
+<td>Optional</td>
+<td>Notes about the event</td>
+<td>Supports markdown</td>
+</tr>
+
+<tr>
+<td>person_ids</td>
+<td>array of ints</td>
+<td>Optional</td>
+<td>Person or people associated with the followup</td>
+<td>Unique identifier <code>id</code> from Person object</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="event-object-homework-parameters">Event Object: Homework Parameters</h2>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td>Required</td>
+<td>Unique identifier</td>
+<td><code>id</code> is automatically generated at POST</td>
+</tr>
+
+<tr>
+<td>job_id</td>
+<td>int</td>
+<td>Required</td>
+<td>Unique identifier <code>id</code> from Job object</td>
+<td>Required during POST event, optional otherwise</td>
+</tr>
+
+<tr>
+<td>created_at</td>
+<td>date_time</td>
+<td>Optional</td>
+<td>Date/time when the homework is assigned, or is recorded in Junt.</td>
+<td>ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request.</td>
+</tr>
+
+<tr>
+<td>updated_at</td>
+<td>date_time</td>
+<td>Optional</td>
+<td>Date/time when the event is last updated.</td>
+<td>ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request.</td>
+</tr>
+
+<tr>
+<td>note</td>
+<td>string</td>
+<td>Optional</td>
+<td>Notes about the event</td>
+<td>Supports markdown</td>
+</tr>
+
+<tr>
+<td>due_date</td>
+<td>date_time</td>
+<td>Required</td>
+<td>Date/time when the homework sample/project is due.</td>
+<td>ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request.</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="event-object-interview-parameters">Event Object: Interview Parameters</h2>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td>Required</td>
+<td>Unique identifier</td>
+<td><code>id</code> is automatically generated at POST</td>
+</tr>
+
+<tr>
+<td>job_id</td>
+<td>int</td>
+<td>Required</td>
+<td>Unique identifier <code>id</code> from Job object</td>
+<td>Required during POST event, optional otherwise</td>
+</tr>
+
+<tr>
+<td>created_at</td>
+<td>date_time</td>
+<td>Optional</td>
+<td>Date/time when the interview request is received, or is recorded in Junt.</td>
+<td>ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request.</td>
+</tr>
+
+<tr>
+<td>updated_at</td>
+<td>date_time</td>
+<td>Optional</td>
+<td>Date/time when the event is last updated.</td>
+<td>ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request.</td>
+</tr>
+
+<tr>
+<td>note</td>
+<td>string</td>
+<td>Optional</td>
+<td>Notes about the event</td>
+<td>Supports markdown</td>
+</tr>
+
+<tr>
+<td>scheduled</td>
+<td>date_time</td>
+<td>Required</td>
+<td>Date/time when the interview is scheduled.</td>
+<td>ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request.</td>
+</tr>
+
+<tr>
+<td>length</td>
+<td>int</td>
+<td>Optional</td>
+<td>Expected/scheduled length of interview.</td>
+<td>In minutes</td>
+</tr>
+
+<tr>
+<td>rating</td>
+<td>string enum</td>
+<td>Optional</td>
+<td>How well did the interview go?</td>
+<td>In emoji</td>
+</tr>
+
+<tr>
+<td>type</td>
+<td>string enum</td>
+<td>Optional</td>
+<td>The type of interview scheduled; example, recruiter, technical, peer, hiring manager</td>
+<td>User generated options</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="event-object-offer-parameters">Event Object: Offer Parameters</h2>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td>Required</td>
+<td>Unique identifier</td>
+<td><code>id</code> is automatically generated at POST</td>
+</tr>
+
+<tr>
+<td>job_id</td>
+<td>int</td>
+<td>Required</td>
+<td>Unique identifier <code>id</code> from Job object</td>
+<td>Required during POST event, optional otherwise</td>
+</tr>
+
+<tr>
+<td>created_at</td>
+<td>date_time</td>
+<td>Optional</td>
+<td>Date/time when the offer is made, or is recorded in Junt.</td>
+<td>ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request.</td>
+</tr>
+
+<tr>
+<td>updated_at</td>
+<td>date_time</td>
+<td>Optional</td>
+<td>Date/time when the event is last updated.</td>
+<td>ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request.</td>
+</tr>
+
+<tr>
+<td>note</td>
+<td>string</td>
+<td>Optional</td>
+<td>Notes about the event</td>
+<td>Supports markdown</td>
+</tr>
+
+<tr>
+<td>status</td>
+<td>string enum</td>
+<td>Required</td>
+<td>The current stage in the offer process</td>
+<td>Valid options: &ldquo;received&rdquo; , &ldquo;negotiating&rdquo; , &ldquo;accepted&rdquo; , &ldquo;finalized&rdquo;</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="associations">Associations</h2>
+
+<table>
+<thead>
+<tr>
+<th>EVENT Object</th>
+<th>Associated Object</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>belongs_to</td>
+<td>JOB</td>
+</tr>
+
+<tr>
+<td>has_many</td>
+<td>people (some events)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="event-object-routes">Event Object Routes</h2>
+
+<p>Event object routes in Junt vary based on the type of event:</p>
+
+<p><code>/&lt;event_type&gt;/:id</code></p>
+
+<ul>
+<li><a href="#get_all_events_of_a_type" title="Get all events of a type">Get all events of a type</a></li>
+<li><a href="#get_one_event_of_a_type" title="Get one event of a type">Get one event of a type</a></li>
+<li><a href="#valid_event_types" title="Valid event_types">Valid &lsquo;event_types&rsquo;</a></li>
+</ul>
+
+<h3 id="get-all-events-of-a-type">Get all events of a type</h3>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">Example</span> <span class="nx">GO</span> <span class="nx">code</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">Example shell code</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">Example</span> <span class="nx">javascript</span> <span class="nx">code</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&#34;job_id&#34;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="nt">&#34;created_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-05-26T11:27:39+00:00&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;updated_at&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&#34;note&#34;</span><span class="p">:</span> <span class="s2">&#34;Coding test in Ruby&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;scheduled&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-06-3T13:00:00+00:00&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;length&#34;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+    <span class="nt">&#34;rating&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;technical&#34;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&#34;job_id&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&#34;created_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-05-27T10:18:17+00:00&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;updated_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-05-28T08:46:23+00:00&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;note&#34;</span><span class="p">:</span> <span class="s2">&#34;Waiting for answers to clarifying questions&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;due_date&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-05-31T18:00:00+00:00&#34;</span>
+  <span class="p">}</span>
+<span class="p">]</span></code></pre></div>
+<p>This endpoint retrieves all event objects for all <code>event_types</code>.</p>
+
+<h4 id="http-request">HTTP Request</h4>
+
+<p><code>GET /&lt;event_type&gt;/</code></p>
+
+<h3 id="get-one-event-of-a-type">Get one event of a type</h3>
+
+<h3 id="valid-event-types">Valid event types</h3>
+
+    
+        
+
+<h1 id="job">Job</h1>
+
+<p>A job object contains a collection of information about a specific role.</p>
+
+<ul>
+<li><a href="#job_object_parameters" title="Parameters">Parameters</a></li>
+<li><a href="#associations" title="Associations">Associations</a></li>
+<li><a href="#job_object_routes" title="Routes/Operations">Routes/Operations</a></li>
+<li><a href="#job_object_errors" title="Errors">Errors</a></li>
+</ul>
+
+<h2 id="job-object-parameters">Job Object Parameters</h2>
+
+<p><em><em>Note:</em> When creating a new job, don&rsquo;t send blank/null optional parameters. Leave blank parameters out of the request.</em></p>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td>Required</td>
+<td>Unique identifier</td>
+<td></td>
+</tr>
+
+<tr>
+<td>company_id</td>
+<td>int</td>
+<td>Required</td>
+<td>Unique identifier</td>
+<td>See Company object for more information.</td>
+</tr>
+
+<tr>
+<td>job_title</td>
+<td>string</td>
+<td>Optional</td>
+<td>Title from job application</td>
+<td></td>
+</tr>
+
+<tr>
+<td>posting_url</td>
+<td>string</td>
+<td>Optional</td>
+<td>URL for the job posting source</td>
+<td></td>
+</tr>
+
+<tr>
+<td>source</td>
+<td>string</td>
+<td>Optional</td>
+<td>How did the user find out about the job?</td>
+<td></td>
+</tr>
+
+<tr>
+<td>referred_by</td>
+<td>string</td>
+<td>Optional</td>
+<td>Person who referred the user</td>
+<td></td>
+</tr>
+
+<tr>
+<td>salary_range</td>
+<td>string</td>
+<td>Optional</td>
+<td>The salary range for the job</td>
+<td>In USD</td>
+</tr>
+
+<tr>
+<td>application_method</td>
+<td>string</td>
+<td>Optional</td>
+<td>How did the user apply?</td>
+<td></td>
+</tr>
+
+<tr>
+<td>note</td>
+<td>string</td>
+<td>Optional</td>
+<td>Notes about the job</td>
+<td></td>
+</tr>
+
+<tr>
+<td>created_at</td>
+<td>date_time</td>
+<td>Optional</td>
+<td>Date/time when the job is first created.</td>
+<td>ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request.</td>
+</tr>
+
+<tr>
+<td>updated_at</td>
+<td>date_time</td>
+<td>Optional</td>
+<td>Date/time when the job is last updated.</td>
+<td>ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request.</td>
+</tr>
+
+<tr>
+<td>start_date</td>
+<td>date_time</td>
+<td>Optional</td>
+<td>The expected start date for the job</td>
+<td>ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request.</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="associations">Associations</h2>
+
+<table>
+<thead>
+<tr>
+<th>JOB Object</th>
+<th>Associated Object</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>belongs_to</td>
+<td>company</td>
+</tr>
+
+<tr>
+<td>has_many</td>
+<td>events (maybe)</td>
+</tr>
+
+<tr>
+<td>has_many</td>
+<td>people (hr contact(s))</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="job-object-routes">Job object routes</h2>
+
+<ul>
+<li><a href="#get_all_jobs_route" title="Get all jobs_route">Get all jobs</a></li>
+<li><a href="#get_a_specific_job_route" title="Get a specific job route">Get a specific job</a></li>
+<li><a href="#create_a_new_job_route" title="Create a new job route">Create a new job</a></li>
+<li><a href="#edit_a_job_route" title="Edit a job route">Edit a job</a></li>
+<li><a href="#delete_a_job_route" title="Delete a job route">Delete a job</a></li>
+</ul>
+
+<h3 id="get-all-jobs-route">Get all jobs route</h3>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">Example</span> <span class="nx">GO</span> <span class="nx">code</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">Example shell code</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">Example</span> <span class="nx">javascript</span> <span class="nx">code</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-JSON" data-lang="JSON"><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&#34;company_id&#34;</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+    <span class="nt">&#34;job_title&#34;</span><span class="p">:</span> <span class="s2">&#34;Senior Software Developer&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;posting_url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://www.linkedin.example.com/jobs/view/1234567890&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;source&#34;</span><span class="p">:</span> <span class="s2">&#34;LinkedIn Jobs&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;referred_by&#34;</span><span class="p">:</span> <span class="s2">&#34;John Smith&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;salary_range&#34;</span><span class="p">:</span> <span class="s2">&#34;150,000&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;application_method&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&#34;note&#34;</span><span class="p">:</span> <span class="s2">&#34;Looking for Ruby experience&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;created_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-05-18T13:28:44+05:00&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;updated_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-05-20T09:33:15+05:00&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;start_date&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-06-01T09:00:00+05:00&#34;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&#34;company_id&#34;</span><span class="p">:</span> <span class="mi">124</span><span class="p">,</span>
+    <span class="nt">&#34;job_title&#34;</span><span class="p">:</span> <span class="s2">&#34;Principal engineer&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;posting_url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://weworkremotely.example.com/remote-jobs/example-company-principal-engineer-3&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;source&#34;</span><span class="p">:</span> <span class="s2">&#34;We Work Remotely&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;referred_by&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&#34;salary_range&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&#34;application_method&#34;</span><span class="p">:</span> <span class="s2">&#34;Online&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;note&#34;</span><span class="p">:</span> <span class="s2">&#34;Leverage experience at last role&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;created_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-05-19T15:17:29+05:00&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;updated_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-05-21T10:48:53+05:00&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;start_date&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-06-10T09:00:00+05:00&#34;</span>
+  <span class="p">}</span>
+<span class="p">]</span></code></pre></div>
+<p>This endpoint retrieves all jobs.</p>
+
+<h4 id="http-request">HTTP Request</h4>
+
+<p><code>GET /jobs/</code></p>
+
+<h3 id="get-a-specific-job-route">Get a specific job route</h3>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">Example</span> <span class="nx">GO</span> <span class="nx">code</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">Example shell code</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">example</span> <span class="nx">javascript</span> <span class="nx">code</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json">  <span class="p">{</span>
+    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&#34;company_id&#34;</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+    <span class="nt">&#34;job_title&#34;</span><span class="p">:</span> <span class="s2">&#34;Senior Software Developer&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;posting_url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://www.linkedin.example.com/jobs/view/1234567890&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;source&#34;</span><span class="p">:</span> <span class="s2">&#34;LinkedIn Jobs&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;referred_by&#34;</span><span class="p">:</span> <span class="s2">&#34;John Smith&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;salary_range&#34;</span><span class="p">:</span> <span class="s2">&#34;150,000&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;application_method&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&#34;note&#34;</span><span class="p">:</span> <span class="s2">&#34;Looking for Ruby experience&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;created_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-05-18T13:28:44+05:00&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;updated_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-05-20T09:33:15+05:00&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;start_date&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-06-01T09:00:00+05:00&#34;</span>
+  <span class="p">}</span></code></pre></div>
+<p>This endpoint retrieves a specific job, called by <code>id</code>.</p>
+
+<h4 id="http-request-1">HTTP Request</h4>
+
+<p><code>GET /jobs/1</code></p>
+
+<h3 id="create-a-new-job-route">Create a new job route</h3>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">Example</span> <span class="nx">GO</span> <span class="nx">code</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">Example shell code</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">Example</span> <span class="nx">javascript</span> <span class="nx">code</span>
+</code></pre></div>
+<blockquote>
+<p>The above command should be formed with JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="nt">&#34;company_id&#34;</span><span class="p">:</span> <span class="mi">125</span><span class="p">,</span>
+  <span class="nt">&#34;job_title&#34;</span><span class="p">:</span> <span class="s2">&#34;Senior Backend Developer&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;source&#34;</span><span class="p">:</span> <span class="s2">&#34;Dice.com&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;referred_by&#34;</span><span class="p">:</span> <span class="s2">&#34;Jerry at Company XYZ&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;salary_range&#34;</span><span class="p">:</span> <span class="s2">&#34;130,000&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;application_method&#34;</span><span class="p">:</span> <span class="s2">&#34;applied on company site&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;note&#34;</span><span class="p">:</span> <span class="s2">&#34;Talk about Ruby project&#34;</span>
+<span class="p">}</span></code></pre></div>
+<p>This endpoint creates a new job, specified by <code>id</code> and linking to <code>company_id</code>.</p>
+
+<p><em><em>Note:</em> In this example, <code>posting_url</code>, <code>created_at</code>, <code>updated_at</code> and <code>start_date</code> are all left out of the request, because these are optional fields that do not contain data. When viewing this job, these fields will return null.</em></p>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="mi">200</span> <span class="err">Success</span></code></pre></div>
+<h4 id="http-request-2">HTTP Request</h4>
+
+<p><code>POST /jobs/</code></p>
+
+<h3 id="edit-a-job-route">Edit a job route</h3>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">Example</span> <span class="nx">GO</span> <span class="nx">code</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">Example shell code</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">Example</span> <span class="nx">javascript</span> <span class="nx">code</span>
+</code></pre></div>
+<blockquote>
+<p>The above command should be formed with JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="nt">&#34;company_id&#34;</span><span class="p">:</span> <span class="mi">125</span><span class="p">,</span>
+  <span class="nt">&#34;posting_url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://www.companyxyz.example.com/careers/123456&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;start_date&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-06-01T09:00:00+05:00&#34;</span>
+<span class="p">}</span></code></pre></div>
+<p>This endpoint adds new data or overwrites data to a specific job, called by <code>id</code>.</p>
+
+<p><em><em>Note:</em> In this example, parameters that are not being updated are left out of the request. Send only parameters being updated when editing a job.</em></p>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="mi">200</span> <span class="err">Success</span></code></pre></div>
+<h4 id="http-request-3">HTTP Request</h4>
+
+<p><code>PUT /jobs/</code></p>
+
+<h3 id="delete-a-job-route">Delete a job route</h3>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">Example</span> <span class="nx">GO</span> <span class="nx">code</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">Example shell code</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">Example</span> <span class="nx">javascript</span> <span class="nx">code</span>
+</code></pre></div>
+<blockquote>
+<p>The above command should be formed with JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="nt">&#34;company_id&#34;</span><span class="p">:</span> <span class="mi">125</span>
+<span class="p">}</span></code></pre></div>
+<p>This endpoint permanently deletes a specific job, called by <code>id</code>.</p>
+
+<p><em><em>Note</em>: Deleting a JOB deletes the JOB, and all associated EVENTS, but not the PEOPLE.</em></p>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="mi">200</span> <span class="err">Success</span></code></pre></div>
+<h4 id="http-request-4">HTTP Request</h4>
+
+<p><code>DELETE /jobs/</code></p>
+
+<h2 id="job-object-errors">Job Object Errors</h2>
+
+    
+        
+
+<h1 id="overview-of-junt-api">Overview of Junt API</h1>
+
+<h2 id="objects-in-junt">Objects in Junt:</h2>
+
+<ul>
+<li>Job</li>
+<li>Company</li>
+<li>Person</li>
+<li>Event</li>
+</ul>
+
+<h2 id="version">Version</h2>
+
+<p>Junt API Version 1</p>
+
+<h2 id="notes">Notes</h2>
+
+<ul>
+<li>All date_time fields are ISO 8601-formatted time stamps.</li>
+<li>All created_at &amp; updated_at fields will be populated on creation/update if the associated date is <em>not</em> passed in.</li>
+<li>An &ldquo;array of ints&rdquo; association will <em>always</em> return an array. It may be an empty array, but it will be present.</li>
+</ul>
+
+    
+        
+
+<h1 id="person">Person</h1>
+
+<p>A person object contains a collection of information about a specific person related to the job hunt.</p>
+
+<ul>
+<li><a href="#person_object_parameters" title="Parameters">Parameters</a></li>
+<li><a href="#associations" title="Associations">Associations</a></li>
+<li><a href="#person_object_routes" title="Routes/Operations">Routes/Operations</a></li>
+</ul>
+
+<h2 id="person-object-parameters">Person Object Parameters</h2>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td>Required</td>
+<td>Unique identifier</td>
+<td>Becomes &ldquo;people_ids&rdquo; in Event object</td>
+</tr>
+
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Required</td>
+<td>The person&rsquo;s name</td>
+<td></td>
+</tr>
+
+<tr>
+<td>email</td>
+<td>string</td>
+<td>Optional</td>
+<td>The person&rsquo;s email address</td>
+<td></td>
+</tr>
+
+<tr>
+<td>phone</td>
+<td>string</td>
+<td>Optional</td>
+<td>The person&rsquo;s phone number</td>
+<td></td>
+</tr>
+
+<tr>
+<td>note</td>
+<td>string</td>
+<td>Optional</td>
+<td>Notes about the person</td>
+<td></td>
+</tr>
+
+<tr>
+<td>created_at</td>
+<td>date_time</td>
+<td>Optional</td>
+<td>Date/time when the person is first created.</td>
+<td>ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request.</td>
+</tr>
+
+<tr>
+<td>updated_at</td>
+<td>date_time</td>
+<td>Optional</td>
+<td>Date/time when the person is last updated.</td>
+<td>ISO 8601, ex. 2019-05-18T13:28:44+00:00 . If not provided, defaults to time server receives the request.</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="associations">Associations</h2>
+
+<table>
+<thead>
+<tr>
+<th>PERSON Object</th>
+<th>Associated Object</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>has_many</td>
+<td>events (maybe)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="person-object-routes">Person Object Routes</h2>
+
+<ul>
+<li><a href="#get_all_people_route" title="Get all people_route">Get all people</a></li>
+<li><a href="#get_a_specific_person_route" title="Get a specific person route">Get a specific person</a></li>
+<li><a href="#create_a_new_person_route" title="Create a new person route">Create a new person</a></li>
+<li><a href="#edit_a_person_route" title="Edit a person route">Edit a person</a></li>
+<li><a href="#delete_a_person_route" title="Delete a person route">Delete a person</a></li>
+</ul>
+
+<h3 id="get-all-people-route">Get all people route</h3>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">Example</span> <span class="nx">GO</span> <span class="nx">code</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">Example shell code</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">Example</span> <span class="nx">javascript</span> <span class="nx">code</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;John Smith&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;email&#34;</span><span class="p">:</span> <span class="s2">&#34;john.smith@example.com&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;phone&#34;</span><span class="p">:</span> <span class="s2">&#34;(123) 456-7890&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;note&#34;</span><span class="p">:</span> <span class="s2">&#34;Worked with John at Company XZY&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;created_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-05-26T11:27:39+00:00&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;updated_at&#34;</span><span class="p">:</span> <span class="kc">null</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Jane Thompson&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;email&#34;</span><span class="p">:</span> <span class="s2">&#34;jthompson@example.com&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;phone&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&#34;note&#34;</span><span class="p">:</span> <span class="s2">&#34;Recruiter for Company ABC&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;created_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-05-27T10:18:17+00:00&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;updated_at&#34;</span><span class="p">:</span> <span class="kc">null</span>
+  <span class="p">}</span>
+<span class="p">]</span></code></pre></div>
+<p>This endpoint retrieves all person objects (people).</p>
+
+<h4 id="http-request">HTTP Request</h4>
+
+<p><code>GET /people/</code></p>
+
+<h3 id="get-a-specific-person-route">Get a specific person route</h3>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">Example</span> <span class="nx">GO</span> <span class="nx">code</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">Example shell code</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">Example</span> <span class="nx">javascript</span> <span class="nx">code</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;John Smith&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;email&#34;</span><span class="p">:</span> <span class="s2">&#34;john.smith@example.com&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;phone&#34;</span><span class="p">:</span> <span class="s2">&#34;(123) 456-7890&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;note&#34;</span><span class="p">:</span> <span class="s2">&#34;Worked with John at Company XZY&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;created_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-05-26T11:27:39+00:00&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;updated_at&#34;</span><span class="p">:</span> <span class="kc">null</span>
+<span class="p">}</span></code></pre></div>
+<p>This endpoint retrieves a specific person, called by <code>id</code>.</p>
+
+<h4 id="http-request-1">HTTP Request</h4>
+
+<p><code>GET /people/1</code></p>
+
+<h3 id="create-a-new-person-route">Create a new person route</h3>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">Example</span> <span class="nx">GO</span> <span class="nx">code</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">Example shell code</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">Example</span> <span class="nx">javascript</span> <span class="nx">code</span>
+</code></pre></div>
+<blockquote>
+<p>The above command should be formed with JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Ruby Vasquez&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;email&#34;</span><span class="p">:</span> <span class="s2">&#34;ruby@company.example.com&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;phone&#34;</span><span class="p">:</span> <span class="s2">&#34;901-234-5678&#34;</span>
+<span class="p">}</span></code></pre></div>
+<p>This endpoint creates a new person, specified by <code>id</code>.</p>
+
+<p><em><em>Note:</em> In this example, <code>note</code>, <code>created_at</code> and <code>updated_at</code> are all left out of the request, because these are optional fields that do not contain data. When viewing this person, these fields will return null.</em></p>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="mi">200</span> <span class="err">Success</span></code></pre></div>
+<h4 id="http-request-2">HTTP Request</h4>
+
+<p><code>POST /people/</code></p>
+
+<h3 id="edit-a-person-route">Edit a person route</h3>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">Example</span> <span class="nx">GO</span> <span class="nx">code</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">Example shell code</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">Example</span> <span class="nx">javascript</span> <span class="nx">code</span>
+</code></pre></div>
+<blockquote>
+<p>The above command should be formed with JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Ruby Vasquez&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;notes&#34;</span><span class="p">:</span> <span class="s2">&#34;In technical interview, asked questions about Vim&#34;</span>
+<span class="p">}</span></code></pre></div>
+<p>This endpoint adds new data or overwrites data to a specific person, called by <code>id</code>.</p>
+
+<p><em><em>Note:</em> In this example, parameters that are not being updated are left out of the request. Send only parameters being updated when editing a person.</em></p>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="mi">200</span> <span class="err">Success</span></code></pre></div>
+<h4 id="http-request-3">HTTP Request</h4>
+
+<p><code>PUT /people/</code></p>
+
+<h3 id="delete-a-person-route">Delete a person route</h3>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">Example</span> <span class="nx">GO</span> <span class="nx">code</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">Example shell code</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">Example</span> <span class="nx">javascript</span> <span class="nx">code</span>
+</code></pre></div>
+<blockquote>
+<p>The above command should be formed with JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Ruby Vasquez&#34;</span>
+<span class="p">}</span></code></pre></div>
+<p>This endpoint permanently deletes a specific person, called by <code>id</code>.</p>
+
+<p><em><em>Note</em>: Deleting a PERSON only deletes the PERSON. This may result in unexpected side-effects, such as a recorded INTERVIEW EVENT with no-one.</em></p>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="mi">200</span> <span class="err">Success</span></code></pre></div>
+<h4 id="http-request-4">HTTP Request</h4>
+
+<p><code>DELETE /people/</code></p>
+
+    
+
+        </div>
+        <div class="dark-box">
+            
+            <div class="lang-selector">
+                
+                <a href="#" data-language-name="shell">Shell</a>
+                
+                <a href="#" data-language-name="go">Go</a>
+                
+                <a href="#" data-language-name="javascript">JavaScript</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+</body>
+</html>
