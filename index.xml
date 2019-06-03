@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Job &#43; Hunt = Junt</title>
-    <link>http://example.org/</link>
+    <link>https://masukomi.github.io/junt/</link>
     <description>Recent content on Job &#43; Hunt = Junt</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://masukomi.github.io/junt/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title></title>
-      <link>http://example.org/company/</link>
+      <link>https://masukomi.github.io/junt/company/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/company/</guid>
+      <guid>https://masukomi.github.io/junt/company/</guid>
       <description>Company A company object contains a collection of information about a specific company.
  Parameters Associations Routes/Operations  Company Object Parameters    Parameter Type Required Description Notes     id int Required Unique identifier Becomes &amp;ldquo;company_id&amp;rdquo; in Job object   name string Required The name of the company    location string Optional Where the company is located    url string Optional The company&amp;rsquo;s website (URL)    note string Optional Notes about the company    created_at date_time Optional Date/time when the company is first created.</description>
     </item>
     
     <item>
       <title></title>
-      <link>http://example.org/event/</link>
+      <link>https://masukomi.github.io/junt/event/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/event/</guid>
+      <guid>https://masukomi.github.io/junt/event/</guid>
       <description>Event An event object contains a collection of information related to a specific event in the job hunt process. Events include:
  ThanksEmail StatusChange Followup Homework Interview Offer
  Parameters
@@ -36,10 +36,10 @@
     
     <item>
       <title></title>
-      <link>http://example.org/job/</link>
+      <link>https://masukomi.github.io/junt/job/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/job/</guid>
+      <guid>https://masukomi.github.io/junt/job/</guid>
       <description>Job A job object contains a collection of information about a specific role.
  Parameters Associations Routes/Operations Errors  Job Object Parameters Note: When creating a new job, don&amp;rsquo;t send blank/null optional parameters. Leave blank parameters out of the request.
    Parameter Type Required Description Notes     id int Required Unique identifier    company_id int Required Unique identifier See Company object for more information.</description>
@@ -47,20 +47,20 @@
     
     <item>
       <title></title>
-      <link>http://example.org/overview/</link>
+      <link>https://masukomi.github.io/junt/overview/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/overview/</guid>
+      <guid>https://masukomi.github.io/junt/overview/</guid>
       <description> Overview of Junt API Objects in Junt:  Job Company Person Event  Version Junt API Version 1
 Notes  All date_time fields are ISO 8601-formatted time stamps. All created_at &amp;amp; updated_at fields will be populated on creation/update if the associated date is not passed in. An &amp;ldquo;array of ints&amp;rdquo; association will always return an array. It may be an empty array, but it will be present.  </description>
     </item>
     
     <item>
       <title></title>
-      <link>http://example.org/person/</link>
+      <link>https://masukomi.github.io/junt/person/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/person/</guid>
+      <guid>https://masukomi.github.io/junt/person/</guid>
       <description>Person A person object contains a collection of information about a specific person related to the job hunt.
  Parameters Associations Routes/Operations  Person Object Parameters    Parameter Type Required Description Notes     id int Required Unique identifier Becomes &amp;ldquo;people_ids&amp;rdquo; in Event object   name string Required The person&amp;rsquo;s name    email string Optional The person&amp;rsquo;s email address    phone string Optional The person&amp;rsquo;s phone number    note string Optional Notes about the person    created_at date_time Optional Date/time when the person is first created.</description>
     </item>
