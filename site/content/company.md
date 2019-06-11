@@ -40,16 +40,39 @@ A company object contains a collection of information about a specific company.
 ### Get all companies route ###
 
 ```go
-Example GO code
+	# list all companies
+	url := "http://localhost:8123/v1/companies"
+
+	req, _ := http.NewRequest("GET", url, nil)
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
 ```
 
 ```shell
 # list all companies
-curl "http://localhost:8123/v1/companies/"
+curl --request GET \
+  --url http://localhost:8123/v1/companies
 ```
 
 ```javascript
-Example javascript code
+// list all companies
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://localhost:8123/v1/companies",
+  "method": "GET",
+  "headers": {}
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
 ```
 
 > The above command returns JSON structured like this:
@@ -64,7 +87,7 @@ Example javascript code
     "note": null,
     "created_at": "2019-05-26T11:27:39+00:00",
     "updated_at": "2019-05-26T11:27:39+00:00",
-    "people_ids": [33,44,55],
+    "person_ids": [33,44,55],
     "job_ids": [12,24,48]
   },
   {
@@ -75,9 +98,8 @@ Example javascript code
     "note": "Basecamp gets remote work - awesome culture",
     "created_at": "2019-05-27T10:18:17+00:00",
     "updated_at": "2019-05-27T10:18:17+00:00",
-    "people_ids": [34,45,56],
+    "person_ids": [34,45,56],
     "job_ids": [12,26,49]
-
   }
 ]
 ```
@@ -86,21 +108,45 @@ This endpoint retrieves all company objects (companies).
 
 #### HTTP Request ####
 
-`GET /company/`
+`GET /v1/companies/`
 
 ### Get a specific company route ###
 
+
 ```go
-Example GO code
+	# show a specific company
+	url := "http://localhost:8123/v1/companies/1"
+
+	req, _ := http.NewRequest("GET", url, nil)
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
 ```
 
 ```shell
 # show a specific company
-curl "http://localhost:8123/v1/companies/1"
+curl --request GET \
+  --url http://localhost:8123/v1/companies/1
 ```
 
 ```javascript
-Example javascript code
+// show a specific company
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://localhost:8123/v1/companies/1",
+  "method": "GET",
+  "headers": {}
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
 ```
 
 > The above command returns JSON structured like this:
@@ -114,7 +160,7 @@ Example javascript code
   "note": "Basecamp gets remote work - awesome culture",
   "created_at": "2019-05-27T10:18:17+00:00",
   "updated_at": "2019-05-27T10:18:17+00:00",
-  "people_ids": [33,44,55],
+  "person_ids": [33,44,55],
   "job_ids": [12,24,48]
 
 }
@@ -124,27 +170,60 @@ This endpoint retrieves a specific company, called by `id`.
 
 #### HTTP Request ####
 
-`GET /company/2`
+`GET /v1/companies/2`
 
 ### Create a new company route ###
 
 ```go
-Example GO code
+	# create a new company
+	url := "http://localhost:8123/v1/companies"
+
+	payload := strings.NewReader("{\n\t\"name\": \"CorporateRunaways\",\n  \"location\":\"Global\",\n  \"url\":\"https://corporaterunaways.com\",\n  \"note\":\"Adventure\"\n}")
+
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
 ```
 
 ```shell
 # create a new company
-curl "http://localhost:8123/v1/companies" \
-  -X POST \
-  -H "Content-Type: application/json" \
-  -d '{"name": "CorporateRunaways",
-      "location":"Global",
-      "url":"https://corporaterunaways.com",
-      "note":"Adventure is _awesome!_"}'
+curl --request POST \
+  --url http://localhost:8123/v1/companies \
+  --header 'content-type: application/json' \
+  --data '{
+	"name": "CorporateRunaways",
+  "location":"Global",
+  "url":"https://corporaterunaways.com",
+  "note":"Adventure"
+}'
 ```
 
 ```javascript
-Example javascript code
+// create a new company
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://localhost:8123/v1/companies",
+  "method": "POST",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "processData": false,
+  "data": "{\n\t\"name\": \"CorporateRunaways\",\n  \"location\":\"Global\",\n  \"url\":\"https://corporaterunaways.com\",\n  \"note\":\"Adventure\"\n}"
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+
 ```
 
 > The above command should be formed with JSON structured like this:
@@ -170,9 +249,11 @@ _*Note:* In this example, `url`, `created_at` and `updated_at` are all left out 
 
 #### HTTP Request ####
 
-`POST /company/`
+`POST /companies/`
 
 ### Edit a company route ###
+
+**WARNING: EDITING IS CURRENTLY NOT IMPLEMENTED**
 
 ```go
 Example GO code
@@ -180,7 +261,7 @@ Example GO code
 
 ```shell
 # edit a company
-curl "http://localhost:8123/v1/companies" \
+curl "http://localhost:8123/v1/companies/1" \
   -X PUT \
   -H "Content-Type: application/json" \
   -d '{"name": "CorporateRunaways",
@@ -216,7 +297,7 @@ _*Note:* In this example, parameters that are not being updated are left out of 
 
 #### HTTP Request ####
 
-`PUT /company/`
+`PUT /company/:id`
 
 ### Delete a company route ###
 
@@ -245,4 +326,4 @@ _*Note*: Deleting a COMPANY deletes all JOBS for that company, all the EVENTS as
 
 #### HTTP Request ####
 
-`DELETE /company/`
+`DELETE /companies/:id`
