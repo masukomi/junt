@@ -1,3 +1,6 @@
 [submodule "themes/docuapi"]
 	path = site/themes/docuapi
 	url = git@github.com:bep/docuapi.git
+[submodule "site/themes/nathakit_docuapi"]
+	path = site/themes/nathakit_docuapi
+	url = git@github.com:nathakits/docuapi.git

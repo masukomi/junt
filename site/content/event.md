@@ -1,3 +1,8 @@
+---
+section_weight: 1
+page_weight: 4
+
+---
 # Event #
 
 An event object contains a collection of information related to a specific event in the job hunt process.

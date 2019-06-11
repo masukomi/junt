@@ -1,3 +1,8 @@
+---
+section_weight: 1
+page_weight: 2
+
+---
 # Job #
 
 A job object contains a collection of information about a specific role.

@@ -1,3 +1,8 @@
+---
+section_weight: 1
+page_weight: 1
+
+---
 # Company #
 
 A company object contains a collection of information about a specific company.
