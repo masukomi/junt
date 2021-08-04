@@ -52,15 +52,15 @@ Clone the [junt_server](https://github.com/masukomi/junt_server) repo.
 
 Then run 
 ```
-go build junt.go
+go build junt_server.go
 ```
 in the root directory.
 
-That should produce a `junt` binary. Just run it and it'll set up a database at `~/.config/junt/junt.db`. If you'd like to specify a different location you can set the `JUNT_DB` environment variable with a path to where you'd like the db file. For example: 
+That should produce a `junt_server` binary. Just run it and it'll set up a database at `~/.config/junt/junt.db`. If you'd like to specify a different location you can set the `JUNT_DB` environment variable with a path to where you'd like the db file. For example: 
 
 ```bash
-$ JUNT_DB="~/stick/it/here.db" junt
+$ JUNT_DB="~/stick/it/here.db" junt_server
 ```
 
-If compiling it yourself is an issue, please talk to masukomi and they'll get you an executable for your OS. Non-trivial changes are happening almost daily so you're advised to update and build regularly.
+If compiling it yourself is an issue, please talk to masukomi and they'll get you an executable for your OS. 
 
